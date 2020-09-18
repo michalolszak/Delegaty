@@ -58,13 +58,10 @@ namespace Delegaty
     }
     class Program
     {
-            public delegate string calculateAgeErafunctionPointer(int year);
-            public delegate string changeTitleFunctionPointer(string name);
-            public delegate void showTwoStringFunctionPointer(string s1, string s2);
         static void Main(string[] args)
         {
             Methods methods = new Methods();
-            calculateAgeErafunctionPointer funcPointer = methods.CalculateAgeEra;
+            Func<int, string> funcPointer = methods.CalculateAgeEra;
 
             string f = "";
             while(!(f == "1" || f == "2"))
@@ -75,7 +72,7 @@ namespace Delegaty
                 f = Console.ReadKey().KeyChar.ToString();
             }
             Console.Clear();
-            showTwoStringFunctionPointer show;
+            Action<string, string> show;
             if (f=="1")
             {
                 show = methods.Show;
@@ -91,7 +88,7 @@ namespace Delegaty
                 f = Console.ReadKey().KeyChar.ToString();
             }
             Console.Clear();
-            changeTitleFunctionPointer changeTitle;
+            Func<string, string> changeTitle;
             if (f=="1")
             {
                 changeTitle = methods.LowerCaseName;
@@ -101,9 +98,9 @@ namespace Delegaty
 
             RestOfTheProgram(funcPointer,changeTitle,show);
         }
-        public static void RestOfTheProgram(calculateAgeErafunctionPointer funcPointer,
-                                            changeTitleFunctionPointer changeTitlePointer,
-                                            showTwoStringFunctionPointer showPointer)
+        public static void RestOfTheProgram(Func<int, string> funcPointer,
+                                            Func<string, string> changeTitlePointer,
+                                            Action<string, string> showPointer)
         {
             Game game = new Game() { Name = "Chrono tiger", Year = 1997 };
             string era = funcPointer(game.Year);
